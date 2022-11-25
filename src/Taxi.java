@@ -67,4 +67,39 @@ public class Taxi extends PublicTransport {
             }
         }
     }
+
+    public void fuelChange(int amount) {
+        this.fuel += amount;
+        if (amount < 0) {
+            if (this.fuel < 10) {
+                this.status = "차고지행";
+                System.out.println("주유량 : " + this.fuel);
+                System.out.println("상태 : " + this.status);
+                System.out.println("주유가 필요합니다");
+            } else {
+                System.out.println("주유량 : " + this.fuel);
+            }
+        } else {
+            System.out.println("상태 : " + this.status);
+            System.out.println("주유량 : " + this.fuel);
+        }
+    }
+
+    public void changeStatus(){
+        if (this.status == "차고지행"){
+            if(this.fuel < 10){
+                this.status = "차고지행";
+                this.currentPassengerCount = 0;
+                this.maxPassengerCount = 30;
+                this.price = 0;
+            }else{
+                this.status = "운행중";
+            }
+        }else{
+            this.status = "차고지행";
+            this.currentPassengerCount = 0;
+            this.maxPassengerCount = 30;
+            this.price = 0;
+        }
+    }
 }
