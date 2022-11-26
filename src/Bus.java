@@ -1,9 +1,15 @@
 public class Bus extends PublicTransport {   // 상속
 
 
-    public void make(int number1, int number2) {
-        number1 = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;   //난수 4자리 랜덤
-        number2 = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
+    public int makeNumber(){
+        int number = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;   //난수 4자리 랜덤
+
+        return number;
+    }
+
+    public void make() {
+        int number1 = makeNumber();
+        int number2 = makeNumber();
         System.out.println("첫번째 버스번호 : " + number1);
         System.out.println("두번째 버스번호 : " + number2);
 
@@ -14,8 +20,8 @@ public class Bus extends PublicTransport {   // 상속
         }
     }
 
-
-    public void Boarding(int passenger) {
+@Override
+    public void boarding(int passenger) {
         this.maxPassengerCount = 30;
         if (this.status == "운행중") {
             if (passenger > 30) {
@@ -30,7 +36,7 @@ public class Bus extends PublicTransport {   // 상속
             }
         }
     }
-
+    @Override
     public void changeFuel(int amount) {
         this.fuel += amount;
         if (amount < 0) {

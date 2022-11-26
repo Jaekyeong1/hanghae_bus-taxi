@@ -4,10 +4,14 @@ public class Taxi extends PublicTransport {
 
     int targetDistance;
 
+    public int makeNumber(){
+        int number = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;   //난수 4자리 랜덤
 
-    public void make(int number1, int number2) {
-        number1 = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;   //난수 4자리 랜덤
-        number2 = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
+        return number;
+    }
+    public void make() {
+        int number1 = makeNumber();
+        int number2 = makeNumber();
         System.out.println("첫번째 택시번호 : " + number1);
         System.out.println("두번째 택시번호 : " + number2);
 
@@ -20,7 +24,7 @@ public class Taxi extends PublicTransport {
         }
     }
 
-    public void Boarding(int passenger, String target, int targetDistance) { // 시나리오에 나온 승객수, 목적지, 목적지까지의 거리
+    public void boarding(int passenger, String target, int targetDistance) { // 시나리오에 나온 승객수, 목적지, 목적지까지의 거리
         this.maxPassengerCount = 4;
         if (this.status == "일반") {
             if (passenger <= 4) {     //최대 4명까지 탑승
@@ -47,9 +51,9 @@ public class Taxi extends PublicTransport {
     }
 
 
-    public void Payment() {
+    public void payment() {
         if (this.status == "운행중") {
-            if (fuel >= 10) {
+            if (this.fuel >= 10) {
                 this.status = "일반";
                 System.out.println("주유량 : " + this.fuel);
                 System.out.println("상태 : " + this.status);
