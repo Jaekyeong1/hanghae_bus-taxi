@@ -1,15 +1,11 @@
 public class Taxi extends PublicTransport {
-    int baseDistance;   //기본거리
-    int basePrice;  //기본요금
-    int distancePrice;  //거리당 요금
 
     String target;
 
     int targetDistance;
 
-    int remainingSeats = 4;
 
-    public void taxi(int number1, int number2) {
+    public void make(int number1, int number2) {
         number1 = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;   //난수 4자리 랜덤
         number2 = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
         System.out.println("첫번째 택시번호 : " + number1);
@@ -25,17 +21,18 @@ public class Taxi extends PublicTransport {
     }
 
     public void Boarding(int passenger, String target, int targetDistance) { // 시나리오에 나온 승객수, 목적지, 목적지까지의 거리
+        this.maxPassengerCount = 4;
         if (this.status == "일반") {
             if (passenger <= 4) {     //최대 4명까지 탑승
                 this.currentPassengerCount += passenger;    // 현재 탑승객 수에 탑승객수를 더함
-                this.remainingSeats -= passenger;   // 자리수 4에 탑승객 수만큼 뺌
+                this.maxPassengerCount -= passenger;   // 자리수 4에 탑승객 수만큼 뺌
                 this.target = target;
                 this.targetDistance = targetDistance;
                 this.status = "운행중";
                 this.price += 3000 + 1000 * (this.targetDistance - 1);  //기본요금 3000원 + 거리당 요금 1000 * 거리( -1은 기본 거리)
 
                 System.out.println("탑승 승객 수 : " + this.currentPassengerCount);
-                System.out.println("잔여 승객 수 : " + this.remainingSeats);
+                System.out.println("잔여 승객 수 : " + this.maxPassengerCount);
                 System.out.println("기본 요금 확인 : " + 3000);
                 System.out.println("목적지 : " + this.target);
                 System.out.println("목적지까지 거리 : " + this.targetDistance + "km");
@@ -65,41 +62,6 @@ public class Taxi extends PublicTransport {
                 System.out.println("주유가 필요한 상태입니다.");
 
             }
-        }
-    }
-
-    public void fuelChange(int amount) {
-        this.fuel += amount;
-        if (amount < 0) {
-            if (this.fuel < 10) {
-                this.status = "차고지행";
-                System.out.println("주유량 : " + this.fuel);
-                System.out.println("상태 : " + this.status);
-                System.out.println("주유가 필요합니다");
-            } else {
-                System.out.println("주유량 : " + this.fuel);
-            }
-        } else {
-            System.out.println("상태 : " + this.status);
-            System.out.println("주유량 : " + this.fuel);
-        }
-    }
-
-    public void changeStatus(){
-        if (this.status == "차고지행"){
-            if(this.fuel < 10){
-                this.status = "차고지행";
-                this.currentPassengerCount = 0;
-                this.maxPassengerCount = 30;
-                this.price = 0;
-            }else{
-                this.status = "운행중";
-            }
-        }else{
-            this.status = "차고지행";
-            this.currentPassengerCount = 0;
-            this.maxPassengerCount = 30;
-            this.price = 0;
         }
     }
 }
